@@ -1,6 +1,6 @@
 ---
 # defaults file for Solana RPC
-solana_version: "1.17.17"
+solana_version: "1.17.18"
 #raw_disk_list: ["/dev/sdb"]
 raw_disk: "/dev/sdb"
 setup_disks: "true"
