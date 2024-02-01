@@ -8,10 +8,18 @@ exec solana-validator \
 	--identity /home/solana/rpc_node.json \
 	--rpc-port 8899 \
 	--full-rpc-api \
+ 	--dynamic-port-range 8002-8020 \
 	--entrypoint entrypoint.mainnet-beta.solana.com:8001 \
-	--limit-ledger-size \
+        --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
+        --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
+        --entrypoint entrypoint4.mainnet-beta.solana.com:8001 \
+        --entrypoint entrypoint5.mainnet-beta.solana.com:8001 \
+	--private-rpc \
+ 	--limit-ledger-size \
 	--log /mnt/logs/solana-validator.log \
 	--accounts /mnt/solana-accounts \
 	--ledger /mnt/solana-ledger \
 	--snapshots /mnt/solana-snapshots \
-	--no-snapshot-fetch
+ 	--no-voting \
+	--no-snapshot-fetch \
+ 	--use-snapshot-archives-at-startup
