@@ -6,7 +6,9 @@ PATH=/mnt/solana/bin:/home/solana/.local/share/solana/install/active_release/bin
 # Start solana rpc node, intended to be used with journalctl/systemctl. Logs will go to journalctl.
 exec solana-validator \
 	--identity /home/solana/rpc_node.json \
+ 	--rpc-bind-address 0.0.0.0 \
 	--rpc-port 8899 \
+ 	--private-rpc \
 	--full-rpc-api \
  	--dynamic-port-range 8002-8020 \
 	--entrypoint entrypoint.mainnet-beta.solana.com:8001 \
@@ -14,12 +16,12 @@ exec solana-validator \
         --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
         --entrypoint entrypoint4.mainnet-beta.solana.com:8001 \
         --entrypoint entrypoint5.mainnet-beta.solana.com:8001 \
-	--private-rpc \
  	--limit-ledger-size \
 	--log /mnt/logs/solana-validator.log \
 	--accounts /mnt/solana-accounts \
 	--ledger /mnt/solana-ledger \
 	--snapshots /mnt/solana-snapshots \
+ 	--rpc-send-leader-count 4 \
  	--no-voting \
 	--no-snapshot-fetch \
  	--use-snapshot-archives-at-startup
