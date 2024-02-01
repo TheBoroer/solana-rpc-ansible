@@ -1,0 +1,11 @@
+#- name: check key file exists
+#  stat:
+#    path: "{{ identity_keypair_location }}"
+#  register: keyfile
+#  failed_when: not keyfile.stat.exists
+
+- name: check disks exist
+  become: true
+  become_user: root
+  shell: fdisk -l | grep 'Disk {{ raw_disk }}'
+  when: setup_disks is defined and (setup_disks | bool)

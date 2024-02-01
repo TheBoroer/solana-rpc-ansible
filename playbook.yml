@@ -1,0 +1,8 @@
+- name: Install/configure Solana RPC
+  hosts: localhost
+  connection: local
+  become: true
+  become_method: sudo
+  gather_facts: yes
+  roles:
+     - { role: solana-rpc }

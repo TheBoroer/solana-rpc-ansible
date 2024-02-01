@@ -1,0 +1,45 @@
+- name: Install a list of packages
+  become: true
+  become_user: root
+  apt:
+    update_cache: yes
+    pkg:
+      - build-essential
+      - pkg-config
+      - libudev-dev
+      - cmake
+      - libclang-dev
+      - libssl-dev
+      - gparted
+      - nload
+      - python3-pip
+      - net-tools
+      - logind
+      - curl
+      - git
+      - chrony
+      - htop
+      - acl
+      - cpufrequtils
+
+- name: Upgrade packages
+  become: true
+  become_user: root
+  apt:
+    upgrade: dist
+
+- name: install solana
+  become: true
+  become_user: solana
+  shell: sh -c "$(curl -sSfL https://release.solana.com/v{{ solana_version }}/install)"
+  args:
+    chdir: /home/solana
+  when: solana_installer|default(true)|bool == true
+
+- name: add solana deps to path
+  become: true
+  become_user: solana
+  shell: export PATH="/home/solana/.local/share/solana/install/active_release/bin:$PATH"
+  args:
+    executable: /bin/bash
+  when: solana_installer|default(true)|bool == true

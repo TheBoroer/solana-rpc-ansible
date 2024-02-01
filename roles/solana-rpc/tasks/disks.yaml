@@ -1,0 +1,38 @@
+- name: check mount
+  become: true
+  become_user: root
+  shell: df -h | grep mnt
+  ignore_errors: yes
+  register: mount_mnt
+  when: raw_disk
+
+- name: wipe disk
+  become: true
+  become_method: sudo
+  community.general.parted:
+    device: "{{ raw_disk }}"
+    unit: MiB
+  when: raw_disk and mount_mnt.rc != 0
+
+- name: create partion on drive
+  community.general.parted:
+    device: "{{ raw_disk }}"
+    number: 1
+    state: present
+  when: raw_disk and mount_mnt.rc != 0
+
+- name: create ext4 filesystem
+  community.general.filesystem:
+    fstype: ext4
+    dev: "{{ raw_disk }}1"
+  when: raw_disk and mount_mnt.rc != 0
+
+- name: mount disk and write entry in fstab
+  become: true
+  become_user: root
+  ansible.posix.mount:
+    path: /mnt
+    src: "{{ raw_disk }}1"
+    fstype: ext4
+    state: mounted
+  when: raw_disk and mount_mnt.rc != 0
