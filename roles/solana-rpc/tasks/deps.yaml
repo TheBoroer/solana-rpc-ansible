@@ -51,3 +51,10 @@
   args:
     chdir: /home/solana
   when: solana_installer|default(true)|bool == false
+
+- name: add rust/cargo to PATH
+  ansible.builtin.lineinfile:
+    dest: /home/solana/.profile
+    insertafter: EOF
+    line: "source /home/solana/.cargo/env"
+    when: solana_installer|default(true)|bool == false
