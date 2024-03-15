@@ -21,6 +21,7 @@
       - htop
       - acl
       - cpufrequtils
+      - protobuf-compiler
 
 - name: Upgrade packages
   become: true
