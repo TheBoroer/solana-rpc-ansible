@@ -43,3 +43,11 @@
   args:
     executable: /bin/bash
   when: solana_installer|default(true)|bool == true
+
+- name: install rust
+  become: true
+  become_user: solana
+  shell: curl https://sh.rustup.rs -sSf | sh
+  args:
+    chdir: /home/solana
+  when: solana_installer|default(true)|bool == false
