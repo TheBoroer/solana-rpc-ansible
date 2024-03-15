@@ -10,6 +10,8 @@ exec solana-validator \
 	--rpc-port 8899 \
  	--private-rpc \
 	--full-rpc-api \
+ 	--rpc-send-leader-count 4 \
+        --rpc-send-retry-ms 500 \
  	--dynamic-port-range 8002-8020 \
 	--entrypoint entrypoint.mainnet-beta.solana.com:8001 \
         --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
@@ -21,7 +23,7 @@ exec solana-validator \
 	--accounts /mnt/solana-accounts \
 	--ledger /mnt/solana-ledger \
 	--snapshots /mnt/solana-snapshots \
- 	--rpc-send-leader-count 4 \
  	--no-voting \
 	--no-snapshot-fetch \
+ 	--no-port-check \
  	--use-snapshot-archives-at-startup
